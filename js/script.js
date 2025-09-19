@@ -64,57 +64,73 @@ function delate(){
 
 }
 
+function applyFilter() {
+    const nameFilter = document.getElementById("filterName").value.trim().toLowerCase();
+    const pesananFilter = document.getElementById("filterPesanan").value.trim().toLowerCase();
 
-function visualisasi(){
+    // filter data sesuai input
+    const filtered = data.filter(item => {
+        const matchName = nameFilter === "" || item.name.toLowerCase().includes(nameFilter);
+        const matchPesanan = pesananFilter === "" || item.pesanan.toLowerCase().includes(pesananFilter);
+        return matchName && matchPesanan;
+    });
+
+    // render ulang list dengan data yang sudah difilter
+    visualisasi(filtered);
+}
+
+function resetFilter() {
+    document.getElementById("filterName").value = "";
+    document.getElementById("filterPesanan").value = "";
+    visualisasi(data); // tampilkan semua data
+}
+
+function visualisasi(customData){
     const list = document.getElementById('ordersList');
     const empty = document.getElementById('emptyState');
-    // clear existing
     list.innerHTML = '';
 
-    if (data.length === 0) {
+    // kalau ada data filter, pakai itu, kalau tidak pakai data asli
+    const renderData = customData || data;
+
+    if (renderData.length === 0) {
         empty.style.display = 'block';
         return;
     }
 
     empty.style.display = 'none';
-    // render setiap entry sebagai <li>
-    data.forEach(item => {
+
+    renderData.forEach(item => {
         const li = document.createElement('li');
         li.textContent = `${item.pesanan} - ${item.date} (${item.name})`;
 
         const checkbox = document.createElement('input');
         checkbox.type = 'checkbox';
-
         checkbox.value = item.pesanan;
         checkbox.id = item.name + item.date;
-
 
         checkbox.className = 'mx-2 accent-green-500 cursor-pointer';
         checkbox.addEventListener('change', function() {
             if (this.checked) {
-
-                // jika checkbox dicentang, tampilkan alert
                 const delateAlert = document.getElementById("selesai");
                 delateAlert.classList.remove("hidden");
-                // otomatis hilang setelah 3 detik
                 setTimeout(() => {
                     delateAlert.classList.add("hidden");
                 }, 2000);
                 data = data.filter(entry => entry.name + entry.date !== this.id);
                 list.removeChild(li);
-                console.log('data after delete', data);
                 if (data.length === 0) {
-                    const empty = document.getElementById('emptyState');
                     empty.style.display = 'block';
                 }
-            };
+            }
         });
 
-        li.className = 'flex justify-center items-center px-4 py-2 border-b border-gray-200 hover:bg-gray-50 transition duration-150';
+        li.className = 'flex justify-between items-center px-4 py-2 border-b border-gray-200 hover:bg-gray-50 transition duration-150';
+        li.appendChild(checkbox);
         list.appendChild(li);
-        li.prepend(checkbox);
     });
 }
+
 
 function validasi(){
     let datei = document.getElementById("date").value;
