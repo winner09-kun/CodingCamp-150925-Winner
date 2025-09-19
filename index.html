@@ -23,6 +23,23 @@
       </svg>
     </span>
   </div>
+  <!-- Alert Tambah Data -->
+  <div id="myalert" class="hidden fixed top-4 right-4 bg-green-500 text-white px-4 py-2 rounded shadow">
+    Data berhasil ditambahkan!
+    <button onclick="closeA()" class="ml-2 font-bold">x</button>
+  </div>
+  
+  <!-- Alert Hapus Semua -->
+  <div id="delatealert" class="hidden fixed top-4 right-4 bg-red-500 text-white px-4 py-2 rounded shadow">
+    Semua pesanan dihapus!
+    <button onclick="closeA()" class="ml-2 font-bold">x</button>
+  </div>
+  
+  <!-- Alert Selesai (centang checkbox) -->
+  <div id="selesai" class="hidden fixed top-4 right-4 bg-blue-500 text-white px-4 py-2 rounded shadow">
+    Pesanan selesai ✔
+    <button onclick="closeA()" class="ml-2 font-bold">x</button>
+  </div>
 
   <!-- header -->
   <header class="bg-orange-500 p-4">
