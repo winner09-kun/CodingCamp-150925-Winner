@@ -1,45 +1,58 @@
 let data = [];
 
-function validasi(){
-    let datei = document.getElementById("date").value;
-    let nameValue = document.getElementById("name").value.trim();
-    let pesananV = document.getElementById("pesanan").value;
-    let dateb = document.getElementById("date");
-    let nameInput = document.getElementById("name"); 
-    let pesananInput = document.getElementById("pesanan"); 
-    let n = 0;
-    // Validasi input
-    if (pesananV === "no") {
-        document.getElementById("erorr").style.display = "block"; 
-        pesananInput.style.borderColor = "red"; 
+function showError(element, message) {
+    let errorEl = document.getElementById(message);
+    if (errorEl) errorEl.style.display = "block";
+    element.style.borderColor = "red";
+}
+
+function clearError(element, message) {
+    let errorEl = document.getElementById(message);
+    if (errorEl) errorEl.style.display = "none";
+    element.style.borderColor = "green";
+}
+
+function validasi() {
+    let dateInput = document.getElementById("date");
+    let nameInput = document.getElementById("name");
+    let pesananInput = document.getElementById("pesanan");
+
+    let dateValue = dateInput.value.trim();
+    let nameValue = nameInput.value.trim();
+    let pesananValue = pesananInput.value;
+
+    let valid = true;
+
+    // Validasi pesanan
+    if (pesananValue === "no") {
+        showError(pesananInput, "errorPesanan");
+        valid = false;
     } else {
-        document.getElementById("erorr").style.display = "none"; 
-        pesananInput.style.borderColor = "green"; 
-        n += 1;
-    }
-    if (datei === "") {
-        document.getElementById("erorr").style.display = "block"; 
-        dateb.style.borderColor = "red"; 
-    }else {
-        document.getElementById("erorr").style.display = "none"; 
-        dateb.style.borderColor = "green"; 
-        n += 1;
-    }
-    
-    if (nameValue === "") {
-        document.getElementById("erorr").style.display = "block"; 
-        nameInput.style.borderColor = "red"; 
-    } else {
-        document.getElementById("erorr").style.display = "none";
-        nameInput.style.borderColor = "green"; 
-        n += 1;
-    }
-    // jika semua validasi lolos, panggil inputdata
-    if (n === 3) {
-        inputdata();
+        clearError(pesananInput, "errorPesanan");
     }
 
+    // Validasi tanggal
+    if (dateValue === "") {
+        showError(dateInput, "errorDate");
+        valid = false;
+    } else {
+        clearError(dateInput, "errorDate");
+    }
+
+    // Validasi nama
+    if (nameValue === "") {
+        showError(nameInput, "errorName");
+        valid = false;
+    } else {
+        clearError(nameInput, "errorName");
+    }
+
+    // Jika semua valid → kirim data
+    if (valid) {
+        inputdata();
+    }
 }
+
 
 
 // fungsi untuk menambahkan data ke dalam list
