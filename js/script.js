@@ -1,56 +1,51 @@
 let data = [];
 
-function showError(element, message) {
-    let errorEl = document.getElementById(message);
-    if (errorEl) errorEl.style.display = "block";
-    element.style.borderColor = "red";
-}
-
-function clearError(element, message) {
-    let errorEl = document.getElementById(message);
-    if (errorEl) errorEl.style.display = "none";
-    element.style.borderColor = "green";
-}
-
 function validasi() {
+    let datei = document.getElementById("date").value;
+    let nameValue = document.getElementById("name").value.trim();
+    let pesananV = document.getElementById("pesanan").value;
+
     let dateInput = document.getElementById("date");
-    let nameInput = document.getElementById("name");
-    let pesananInput = document.getElementById("pesanan");
+    let nameInput = document.getElementById("name"); 
+    let pesananInput = document.getElementById("pesanan"); 
 
-    let dateValue = dateInput.value.trim();
-    let nameValue = nameInput.value.trim();
-    let pesananValue = pesananInput.value;
+    let errorBox = document.getElementById("erorr");
 
-    let valid = true;
+    // reset style
+    dateInput.style.borderColor = "";
+    nameInput.style.borderColor = "";
+    pesananInput.style.borderColor = "";
+    errorBox.style.display = "none";
 
-    // Validasi pesanan
-    if (pesananValue === "no") {
-        showError(pesananInput, "errorPesanan");
-        valid = false;
-    } else {
-        clearError(pesananInput, "errorPesanan");
-    }
-
-    // Validasi tanggal
-    if (dateValue === "") {
-        showError(dateInput, "errorDate");
-        valid = false;
-    } else {
-        clearError(dateInput, "errorDate");
-    }
-
-    // Validasi nama
+    // cek satu-satu
     if (nameValue === "") {
-        showError(nameInput, "errorName");
-        valid = false;
-    } else {
-        clearError(nameInput, "errorName");
+        nameInput.style.borderColor = "red";
+        errorBox.innerText = "Nama harus diisi!";
+        errorBox.style.display = "block";
+        return;
     }
 
-    // Jika semua valid → kirim data
-    if (valid) {
-        inputdata();
+    if (datei === "") {
+        dateInput.style.borderColor = "red";
+        errorBox.innerText = "Tanggal harus diisi!";
+        errorBox.style.display = "block";
+        return;
     }
+
+    if (pesananV === "no") {
+        pesananInput.style.borderColor = "red";
+        errorBox.innerText = "Silakan pilih pesanan!";
+        errorBox.style.display = "block";
+        return;
+    }
+
+    // kalau semua valid
+    nameInput.style.borderColor = "green";
+    dateInput.style.borderColor = "green";
+    pesananInput.style.borderColor = "green";
+    errorBox.style.display = "none";
+
+    inputdata(); // panggil fungsi inputdata()
 }
 
 
