@@ -6,6 +6,7 @@
     <link rel="stylesheet" href="/css/style.css">
     <!-- js eksternal -->
     <script src="js/script.js"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <title>To-DoList</title>
 </head>
@@ -67,7 +68,7 @@
         <input onclick="validasi()" type="button" value="Kirim" onecli class="px-4 py-2 bg-orange-500 text-white rounded-xl hover:bg-red-500 transition duration-200 cursor-pointer shadow-sm">
         <!-- section content -->
         <section class="mt-10 bg-white rounded-lg shadow-md p-8">
-            <button onclick="delate()" class="shadow-sm border-gray-400"><img class="w-6 " src="/img/trash.svg" alt="hapus" ></button>
+            <button onclick="delate()" class="shadow-sm border-gray-400"><i class="fa-solid fa-trash"></i></button>
             <div class="flex gap-2 my-4">
                 <input type="text" id="filterName" placeholder="Cari nama..." 
                     class="border p-2 rounded w-1/3">
